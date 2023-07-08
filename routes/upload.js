@@ -5,6 +5,7 @@ import Express from 'express';
 import fs from "fs";
 import PDFParser from "pdf2json";
 import Gradelist from '../models/student.js'
+const db = "mongodb+srv://Sanjeev:Sanju266@cluster0.erlocnt.mongodb.net/FullStack?retryWrites=true&w=majority";
 
 
 const router = Express.Router();
@@ -156,14 +157,22 @@ const checkFileType = function (file, cb) {
 };
 
 
+router.get('/gradelist',async (req,res)=>{
+  const resp = await Gradelist.find();
+
+  
+  res.send(resp).status(200);
+
+})
+
 
 router.post("/single", upload.single("image"), async (req, res) => {
-  if (req.file) {
+  if (req.body) {
     //   console.log(req.file);
 
     const result = await getPdf();
     const len = result[result.length - 1].final - 1
-    console.log(result[result.length - 1].final);
+    // console.log(result[result.length - 1].final);
     const List = new Gradelist({ "Gradelist": result[result.length - 1].final });
     const resp = await List.save();
     //    if(result && fs.existsSync('./images/resume.pdf'))  fs.unlinkSync('./images/resume.pdf')
