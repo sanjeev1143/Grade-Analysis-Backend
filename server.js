@@ -2,8 +2,6 @@ import Express from 'express';
 import Mongoose from 'mongoose';
 import  CorsOptions  from 'cors';
 import  BodyParser  from 'body-parser';
-import multer from 'multer';
-import path from 'path';
 import  uploadroute from './routes/upload.js'
 
 
@@ -21,6 +19,7 @@ app.use(BodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(BodyParser.json());
+
 
 
 
